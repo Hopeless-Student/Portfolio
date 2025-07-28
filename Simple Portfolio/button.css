@@ -1,0 +1,30 @@
+button {
+    width: 50px;
+    height: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    right: 100px;
+    bottom: 600px;
+   
+  }
+  .butback {
+    background-color: #6264ee;
+    transition: .3s;
+  }
+  .butback:hover {
+    box-shadow: 8px 8px #2808b9;
+    transition: .3s;
+  }
+  a{
+    text-decoration: none;
+    color: #000;
+  }

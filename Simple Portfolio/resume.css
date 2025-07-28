@@ -1,0 +1,124 @@
+*{
+    margin:0%;
+    padding: 0%;
+    box-sizing: border-box;
+    
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container{
+    position: relative;
+    width: 50%;
+    min-width: 1000px;
+    min-height: 1000px;
+    background: white;  
+    margin: 50px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    box-shadow: 0 35px 55px rgba(0, 0, 0, 0.5);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.container .left{
+    position: relative;
+    background: #89CFF0;
+    padding: 20px;
+}
+.container .textext{
+    position: relative;
+    background: #89CFF0;
+    padding: 20px;
+}
+
+.contact{
+    color: black;
+    padding-top: 10%;
+    padding-left: 10%;
+    font-size: 30px;
+}
+.about{
+    padding-top: 15%;
+    padding-left: 5%;
+    font-size: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.Personal{
+    padding-left: 5%;
+    padding-top: 4%;
+    font-size: 30px;
+}
+.data{
+    padding-left: 5%;
+    line-height: 2;
+}
+.skillsbox{
+    width: 90%;
+    background-color: #ddd;
+    position: relative;
+    left: 30px;
+    border-radius: 20px;
+}
+.multi{
+    background-color: #2196F3;
+    border-radius: 20px;
+    width: 70%;
+    text-align: center;
+}
+.Independent{
+    background-color:#04AA6D;
+    border-radius: 20px;
+    width: 50%;
+    text-align: center;
+}
+.work{
+    background-color:#f44336;
+    border-radius: 20px;
+    width: 60%;
+    text-align: center;
+}
+.hard{
+    background-color:#808080;
+    border-radius: 20px;
+    width: 80%;
+    text-align: center;
+}
+.Ref{
+    padding-left: 5%;
+    padding-top: 2%;
+    font-size: 20px;
+}
+.back{
+    width: 90%;
+    background-color: #ddd;
+    position: relative;
+    left: 30px;
+    border-radius: 20px;
+}
+.C{
+    background-color: rgb(209, 121, 5);
+    border-radius: 20px;
+    width: 40%;
+    text-align: center;
+}
+.Java{
+    background-color: #f021f3;
+    border-radius: 20px;
+    width: 15%;
+    text-align: center;
+}
+.HTML{
+    background-color: #21f33d;
+    border-radius: 20px;
+    width: 15%;
+    text-align: center;
+}
+.CSS{
+    background-color: #e30000;
+    border-radius: 20px;
+    width: 15%;
+    text-align: center;
+}
