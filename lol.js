@@ -15,8 +15,49 @@
       e.preventDefault();
       const t = document.querySelector(a.getAttribute('href'));
       if (t) t.scrollIntoView({ behavior: 'smooth' });
+      // Close mobile menu
+      nav.classList.remove('open');
     });
   });
+
+  /* ── ACTIVE NAV LINK ── */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  function setActiveLink() {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100; // adjust for header height
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', setActiveLink);
+  setActiveLink(); // initial call
+
+  /* ── HAMBURGER MENU ── */
+    const hamburger = document.querySelector('.hamburger');
+    const mainNav = document.querySelector('nav');
+
+    hamburger.addEventListener('click', () => {
+      mainNav.classList.toggle('open');
+      hamburger.textContent = mainNav.classList.contains('open') ? '✕' : '☰';
+    });
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        hamburger.textContent = '☰';
+      });
+    });
 
   /* ── EXPANDABLE NOTES ── */
   document.querySelectorAll('.notes-toggle').forEach(btn => {

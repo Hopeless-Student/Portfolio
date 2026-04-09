@@ -11,10 +11,14 @@
 
 <!-- HEADER -->
 <header class="site-header">
-  <div class="header-left">
-    <div class="name">Ezra</div>
-    <div class="tagline">college student · data analysis · work in progress, but reliable</div>
+  <div class="header-top">
+    <div class="header-left">
+      <div class="name">Ezra</div>
+      <div class="tagline">college student · data analysis · work in progress, but reliable</div>
+    </div>
+    <button class="hamburger" aria-label="Toggle menu">☰</button>
   </div>
+  
   <nav>
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
@@ -57,12 +61,12 @@
 
     <!-- Image card — hides itself if image is missing -->
     <div class="img-card"
-         data-src="images\Top 10 Directors with high movie rating.svg"
+         data-src="assets\Top 10 Directors with high movie rating.png"
          data-caption="EDA: Dataset Analysis — IMDb Top 1000"
          role="button"
          tabindex="0"
          aria-label="Click to view full image">
-      <img src="images\Top 10 Directors with high movie rating.svg"
+      <img src="assets\Top 10 Directors with high movie rating.png"
            alt="EDA graph"
            onerror="this.closest('.img-card').style.display='none'">
       <div class="img-card-overlay">
@@ -102,12 +106,12 @@
     </div>
 
     <div class="img-card"
-         data-src="images\ai on modern research.png"
+         data-src=" assets/ai on modern research.png"
          data-caption="Thesis: AI in Student Research"
          role="button"
          tabindex="0"
          aria-label="Click to view full image">
-      <img src="images\ai on modern research.png"
+      <img src="assets/ai on modern research.png"
            alt="AI in Student Research"
            onerror="this.closest('.img-card').style.display='none'">
       <div class="img-card-overlay">
@@ -281,15 +285,15 @@
     <div class="contact-links">
       <div class="contact-row">
         <span class="contact-key">Email</span>
-        <a href="mailto:your@email.com" class="contact-val">your@email.com</a>
+        <a href="mailto:gonzalescjay.1006@gmail.com" class="contact-val">gonzalescjay.1006@gmail.com</a>
       </div>
       <div class="contact-row">
         <span class="contact-key">GitHub</span>
-        <a href="#" class="contact-val">github.com/yourprofile</a>
+        <a href="https://github.com/Hopeless-Student" target="_blank" class="contact-val">Hopeless-Student</a>
       </div>
       <div class="contact-row">
         <span class="contact-key">LinkedIn</span>
-        <a href="https://www.linkedin.com/in/c-jay-gonzales-91549923b " target="_blank" class="contact-val">linkedin.com/in/yourprofile</a>
+        <a href="https://www.linkedin.com/in/c-jay-gonzales-91549923b" target="_blank" class="contact-val">C-jay Gonzales</a>
       </div>
     </div>
   </div>
@@ -306,7 +310,7 @@
   <div class="modal-img-wrap" id="modalWrap">
     <div class="modal-bar">
       <span class="modal-caption-top" id="modalCaption"></span>
-      <button class="modal-close" id="modalClose">esc · close ×</button>
+      <button class="modal-close" id="modalClose">close ×</button>
     </div>
     <img id="modalImg" src="" alt="Full size preview">
   </div>

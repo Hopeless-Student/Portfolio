@@ -32,18 +32,26 @@
   /* ── HEADER ── */
   .site-header {
     position: sticky;
-    padding: 60px 0 48px;
+    top: 0;
+    z-index: 1000;
+    background: rgba(14, 14, 14, 0.8); /* Semi-transparent bg */
+    backdrop-filter: blur(12px); /* Glass effect */
+    -webkit-backdrop-filter: blur(12px);
+    padding: 24px 0;
     border-bottom: 1px solid var(--border);
     margin-bottom: 60px;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: appear 0.5s ease both;
+  }
+
+    .header-top {
+    display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 24px;
-    animation: appear 0.5s ease both;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
-/* .site-header{position:sticky;top:0;background:var(--bg);z-index:10;padding:24px 0;border-bottom:1px solid var(--border);margin-bottom:40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px} */
+
   .name {
     font-family: var(--mono);
     font-size: 1.25rem;
@@ -60,7 +68,14 @@
     font-style: italic;
   }
 
-  nav { display: flex; gap: 20px; flex-wrap: wrap;}
+  nav { 
+    display: flex;
+    gap: 24px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border2);
+  }
+
+  .hamburger { display: none; }
 
   nav a {
     font-family: var(--mono);
@@ -68,12 +83,18 @@
     color: var(--muted);
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    transition: color 0.2s;
-    padding-bottom: 2px;
+    transition: all 0.2s ease;
+    padding: 4px 0;
     border-bottom: 1px solid transparent;
   }
+  nav a:hover {
+    color: var(--text);
+  }
 
-  nav a:hover { color: var(--text); border-bottom-color: var(--border); }
+  nav a.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
 
   /* ── SECTIONS ── */
   .section { padding: 0 0 70px; }
@@ -519,7 +540,21 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 560px) {
     body { font-size: 14px; }
-    .site-header { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .site-header {
+      padding: 16px 0;
+    }
     nav { gap: 14px; }
     .skill-cat-cell { width: 100px; }
+
+    /* Mobile nav */
+    nav {
+    display: none; /* Hidden by default on mobile */
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0 10px;
+    border-top: 1px solid var(--border);
+  }
+    nav.open { display: flex; }
+    .hamburger { display: block; background: none; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); font-size: 1.2rem; cursor: pointer; transition: color 0.2s; }
+    .hamburger:hover { color: var(--text); }
   }
