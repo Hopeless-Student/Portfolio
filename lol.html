@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ezra — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lol.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-left">
+    <div class="name">Ezra</div>
+    <div class="tagline">college student · data analysis · work in progress, but reliable</div>
+  </div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#process">Process</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ABOUT -->
+<section class="section reveal" id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">About</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-body">
+    <p>I'm a college student working on data analysis, academic research, and small systems that actually do something useful. Most of what I build starts as schoolwork — but I treat it like it matters, because the thinking behind it does.</p>
+    <p>I'm not always fast or consistent. But I finish what I start, and I try to understand things properly rather than just get them done. That's the standard I hold myself to.</p>
+    <p>I'm more interested in the process of figuring something out than in the end result looking polished. Both matter — but the thinking comes first.</p>
+    <div class="about-note">Still learning. Sometimes inconsistent. Usually thinking about it more than I let on.</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section reveal" id="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">Projects</span>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- PROJECT 1 -->
+  <div class="project-item">
+    <div class="project-meta">
+      <span class="project-title">EDA: Dataset Analysis</span>
+      <span class="project-type">Personal / Data</span>
+      <span class="project-status status-ongoing">In Progress</span>
+    </div>
+
+    <!-- Image card — hides itself if image is missing -->
+    <div class="img-card"
+         data-src="images\Top 10 Directors with high movie rating.svg"
+         data-caption="EDA: Dataset Analysis — IMDb Top 1000"
+         role="button"
+         tabindex="0"
+         aria-label="Click to view full image">
+      <img src="images\Top 10 Directors with high movie rating.svg"
+           alt="EDA graph"
+           onerror="this.closest('.img-card').style.display='none'">
+      <div class="img-card-overlay">
+        <span class="img-zoom-hint">click to zoom</span>
+      </div>
+    </div>
+
+    <p class="project-desc">Explored a dataset to find patterns, outliers, and trends — not just summary statistics. The goal was to understand what the data was actually saying, not just run methods on it.</p>
+
+    <div class="project-notes">
+      <button class="notes-toggle" aria-expanded="false">
+        <span class="toggle-icon">+</span>
+        Notes from the work
+      </button>
+      <div class="notes-body">
+        <div class="notes-inner">
+          <div class="note-line">Realized early that cleaning the data was half the actual project.</div>
+          <div class="note-line">Had to unlearn the habit of treating outputs as conclusions — they're starting points.</div>
+          <div class="note-line">Interpretation required more thought than computation. That wasn't obvious going in.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-stack">
+      <span class="stack-tag">Google Sheets</span>
+      <span class="stack-tag">Google Docs</span>
+      <span class="stack-tag">IMDb Top 1000 Dataset</span>
+    </div>
+  </div>
+
+  <!-- PROJECT 2 -->
+  <div class="project-item">
+    <div class="project-meta">
+      <span class="project-title">Thesis: AI in Student Research</span>
+      <span class="project-type">Academic / Research</span>
+      <span class="project-status status-done">Completed</span>
+    </div>
+
+    <div class="img-card"
+         data-src="images\ai on modern research.png"
+         data-caption="Thesis: AI in Student Research"
+         role="button"
+         tabindex="0"
+         aria-label="Click to view full image">
+      <img src="images\ai on modern research.png"
+           alt="AI in Student Research"
+           onerror="this.closest('.img-card').style.display='none'">
+      <div class="img-card-overlay">
+        <span class="img-zoom-hint">click to zoom</span>
+      </div>
+    </div>
+
+    <p class="project-desc">Studied how college students integrate AI tools into their research process — not just whether they use them, but how it changes the way they think and work. Combined quantitative data with qualitative interpretation.</p>
+
+    <div class="project-notes">
+      <button class="notes-toggle" aria-expanded="false">
+        <span class="toggle-icon">+</span>
+        Notes from the work
+      </button>
+      <div class="notes-body">
+        <div class="notes-inner">
+          <div class="note-line">The most interesting findings weren't what I expected going in. That's probably how it should go.</div>
+          <div class="note-line">Struggled with making analysis feel honest rather than just structured. Still working on that.</div>
+          <div class="note-line">Writing the implications section forced me to actually take a position. That was uncomfortable but worth it.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-stack">
+      <span class="stack-tag">Google Sheets</span>
+      <span class="stack-tag">Google Docs</span>
+      <span class="stack-tag">Statistical Analysis</span>
+      <span class="stack-tag">Academic Writing</span>
+    </div>
+  </div>
+
+  <!-- PROJECT 3 -->
+  <div class="project-item">
+    <div class="project-meta">
+      <span class="project-title">This Portfolio</span>
+      <span class="project-type">Web / Personal</span>
+      <span class="project-status status-ongoing">In Progress</span>
+    </div>
+
+    <p class="project-desc">Built with plain HTML and CSS. Nothing fancy — just trying to have something that represents the work clearly and honestly.</p>
+
+    <div class="project-notes">
+      <button class="notes-toggle" aria-expanded="false">
+        <span class="toggle-icon">+</span>
+        Notes from the work
+      </button>
+      <div class="notes-body">
+        <div class="notes-inner">
+          <div class="note-line">Spent more time thinking about what to say than how it looks.</div>
+          <div class="note-line">Will keep updating this as I build more things worth showing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-stack">
+      <span class="stack-tag">HTML</span>
+      <span class="stack-tag">CSS</span>
+      <span class="stack-tag">JavaScript</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- PROCESS -->
+<section class="section reveal" id="process">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Process</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="log-entry">
+    <div class="log-dot-col"><div class="log-dot"></div><div class="log-line"></div></div>
+    <div class="log-content">
+      <div class="log-entry-label">On getting started</div>
+      <div class="log-entry-text">I usually overthink the beginning. But once I start, momentum builds — so I've learned to just open the file and do something, even if it's wrong. Course-correcting is easier than starting from scratch.</div>
+    </div>
+  </div>
+
+  <div class="log-entry">
+    <div class="log-dot-col"><div class="log-dot"></div><div class="log-line"></div></div>
+    <div class="log-content">
+      <div class="log-entry-label">On losing motivation</div>
+      <div class="log-entry-text">It happens. I've stopped treating it like a character flaw. The better question is: what's the smallest possible thing I can do today to keep it moving? Usually that's enough.</div>
+    </div>
+  </div>
+
+  <div class="log-entry">
+    <div class="log-dot-col"><div class="log-dot"></div><div class="log-line"></div></div>
+    <div class="log-content">
+      <div class="log-entry-label">On quality vs. done</div>
+      <div class="log-entry-text">I'd rather submit something honest and slightly rough than something polished that I don't fully understand. That said — I don't use "progress over perfection" as an excuse to be lazy. There's a difference.</div>
+    </div>
+  </div>
+
+  <div class="log-entry">
+    <div class="log-dot-col"><div class="log-dot"></div><div class="log-line"></div></div>
+    <div class="log-content">
+      <div class="log-entry-label">On presenting work</div>
+      <div class="log-entry-text">I try to show the thinking, not just the output. A chart without context is just a picture. I'm still learning how to explain my reasoning clearly — but I know that's where the actual value is.</div>
+    </div>
+  </div>
+
+  <div class="log-entry">
+    <div class="log-dot-col"><div class="log-dot"></div></div>
+    <div class="log-content">
+      <div class="log-entry-label">Where I'm at now</div>
+      <div class="log-entry-text">Building more, documenting better, getting comfortable with not knowing everything. Still early. That's fine.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section reveal" id="skills">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">Skills</span>
+    <div class="section-line"></div>
+  </div>
+
+  <table class="skills-table">
+    <tbody>
+      <tr>
+        <td class="skill-cat-cell">Data</td>
+        <td class="skill-items-cell">
+          Exploratory Data Analysis, data cleaning, visualization, basic statistics
+          <span class="skill-honest">Comfortable here. Still developing statistical depth.</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="skill-cat-cell">Research</td>
+        <td class="skill-items-cell">
+          Academic writing, survey design, qualitative &amp; quantitative methods, synthesis
+          <span class="skill-honest">This is probably my strongest area. I take it seriously.</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="skill-cat-cell">Programming</td>
+        <td class="skill-items-cell">
+          Python (pandas, matplotlib, Jupyter), HTML, CSS, JavaScript, basic PHP
+          <span class="skill-honest">Python for data work. Web for personal projects. Not a developer — but I can build things.</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="skill-cat-cell">Thinking</td>
+        <td class="skill-items-cell">
+          Problem framing, pattern recognition, critical reading, slow but careful analysis
+          <span class="skill-honest">This is the one I care most about improving.</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="skill-cat-cell">Learning</td>
+        <td class="skill-items-cell">
+          Self-directed, documentation-first, learn-by-doing with occasional rabbit holes
+          <span class="skill-honest">Sometimes slow. Usually thorough.</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- CONTACT -->
+<section class="section reveal" id="contact">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Contact</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-block">
+    <p>If you want to talk about a project, a collaboration, or just something interesting — reach out. I'm not always fast to reply, but I do reply.</p>
+    <div class="contact-links">
+      <div class="contact-row">
+        <span class="contact-key">Email</span>
+        <a href="mailto:your@email.com" class="contact-val">your@email.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-key">GitHub</span>
+        <a href="#" class="contact-val">github.com/yourprofile</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-key">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/c-jay-gonzales-91549923b " target="_blank" class="contact-val">linkedin.com/in/yourprofile</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <span class="footer-note">Ezra · 2026</span>
+  <span class="footer-wip"><span class="wip-dot"></span> work in progress, as always</span>
+</footer>
+
+<!-- IMAGE MODAL -->
+<div class="modal-backdrop" id="imgModal" role="dialog" aria-modal="true" aria-label="Image preview">
+  <div class="modal-img-wrap" id="modalWrap">
+    <div class="modal-bar">
+      <span class="modal-caption-top" id="modalCaption"></span>
+      <button class="modal-close" id="modalClose">esc · close ×</button>
+    </div>
+    <img id="modalImg" src="" alt="Full size preview">
+  </div>
+</div>
+<script src="lol.js"></script>
+</body>
+</html>
