@@ -5,6 +5,7 @@
     --border:  #222;
     --border2: #1c1c1c;
     --text:    #d6d6d6;
+    --bg2:    #a5c7ff;
     --muted:   #5a5a5a;
     --faint:   #2a2a2a;
     --accent:  #a8c5a0;
@@ -97,7 +98,7 @@
   }
 
   /* ── SECTIONS ── */
-  .section { padding: 0 0 70px; }
+  .section { padding: 0 0 70px; scroll-margin-top: 180px;}
 
   .section-header {
     display: flex;
@@ -220,7 +221,6 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ensures all cards in a row have equal height */
   transition: border-color 0.2s, transform 0.2s;
 }
 
@@ -235,6 +235,7 @@
   grid-template-columns: repeat(2, 1fr); /* Creates two equal columns */
   gap: 24px; /* Space between cards */
   margin-top: 32px;
+  align-items: start;
 }
 
   /* ── IMAGE CARD ── */
@@ -455,7 +456,126 @@
   }
 
   .modal-close:hover { color: var(--text); }
- /*Tech stack*/
+ /* ── CERTIFICATIONS CAROUSEL ── */
+.cert-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cert-track-container {
+  overflow: hidden;
+  flex: 1;
+}
+
+.cert-track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.cert-card {
+  flex: 0 0 calc(50% - 8px); /* 2 cards visible at once */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 12px;
+  transition: border-color 0.2s;
+}
+
+.cert-card:hover {
+  border-color: var(--muted);
+}
+
+.cert-card .img-card {
+  margin: 0; /* override project card margin */
+  aspect-ratio: 4 / 3;
+}
+
+.cert-card .img-card img {
+  aspect-ratio: 4 / 3;
+}
+
+.cert-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cert-title {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.cert-issuer {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.cert-arrow {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.2s, border-color 0.2s;
+  align-self: center;
+}
+
+.cert-arrow:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.cert-arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.cert-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.cert-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--faint);
+  border: 1px solid var(--muted);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.cert-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+@media (max-width: 600px) {
+    .cert-card {
+      flex: 0 0 100%;
+    }
+  }
+ 
+  /*Tech stack*/
   .tech-groups {
   display: flex;
   flex-direction: column;
@@ -571,30 +691,47 @@
     border-radius: 4px;
   }
 
-  .contact-block p { font-size: 0.92rem; color: var(--muted); margin-bottom: 20px; font-weight: 300; }
-  .contact-links { display: flex; flex-direction: column; gap: 10px; }
-  .contact-row { display: flex; align-items: center; gap: 14px; }
+.contact-block p { font-size: 0.92rem; color: var(--muted); margin-bottom: 20px; font-weight: 300; }
 
-  .contact-key {
-    font-family: var(--mono);
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    width: 60px;
-    flex-shrink: 0;
-  }
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
 
-  .contact-val {
-    font-family: var(--mono);
-    font-size: 0.82rem;
-    color: var(--text);
-    border-bottom: 1px dashed var(--border);
-    padding-bottom: 1px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
 
-  .contact-val:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.form-row input:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.contact-form button {
+  padding: 10px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 4px;
+}
+
+.contact-form button:hover {
+  background: var(--accent);
+  color: black;
+}
 
   /* ── FOOTER ── */
   .site-footer {

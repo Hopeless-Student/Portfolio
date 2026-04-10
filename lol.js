@@ -16,7 +16,7 @@
       const t = document.querySelector(a.getAttribute('href'));
       if (t) t.scrollIntoView({ behavior: 'smooth' });
       // Close mobile menu
-      nav.classList.remove('open');
+      mainNav.classList.remove('open');
     });
   });
 
@@ -25,20 +25,33 @@
   const navLinks = document.querySelectorAll('nav a');
 
   function setActiveLink() {
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 100; // adjust for header height
-      if (pageYOffset >= sectionTop) {
-        current = section.getAttribute('id');
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      // If near the bottom of the page, force-activate the last nav link
+      if (scrollY + windowHeight >= docHeight - 10) {
+        navLinks.forEach(link => link.classList.remove("active"));
+        navLinks[navLinks.length - 1].classList.add("active");
+        return;
       }
-    });
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) {
-        link.classList.add('active');
-      }
-    });
-  }
+
+      let current = "";
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 220; // offset for sticky header
+        if (scrollY >= sectionTop) {
+          current = section.id;
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) {
+          link.classList.add("active");
+        }
+      });
+    }
 
   window.addEventListener('scroll', setActiveLink);
   setActiveLink(); // initial call
@@ -120,3 +133,91 @@
     details.style.maxHeight = isOpen ? null : details.scrollHeight + "px";
   });
 });
+
+/* ── CLICKABLE PROJECT CARDS ── */
+document.querySelectorAll('.project-card').forEach(card => {
+  const url = card.dataset.url;
+  if (!url) return;
+
+  card.style.cursor = 'pointer';
+
+  card.addEventListener('click', e => {
+    // Ignore clicks on the image, details/summary, and stack items
+    if (e.target.closest('.img-card, details, summary, .project-stack')) return;
+    window.open(url, '_blank');
+  });
+});
+
+/* ── CERTIFICATIONS CAROUSEL ── */
+(function () {
+  const track       = document.querySelector('.cert-track');
+  const container   = document.querySelector('.cert-track-container');
+  const cards       = document.querySelectorAll('.cert-card');
+  const dotsWrapper = document.querySelector('.cert-dots');
+  const btnLeft     = document.querySelector('.cert-arrow-left');
+  const btnRight    = document.querySelector('.cert-arrow-right');
+
+  if (!track || cards.length === 0) return;
+
+  // How many cards are visible at once (matches CSS flex-basis)
+  const visibleCount = () => window.innerWidth <= 600 ? 1 : 2;
+  let current = 0;
+  let autoTimer;
+
+  // Build dots
+  const totalSteps = () => Math.ceil(cards.length / visibleCount());
+
+  function buildDots() {
+    dotsWrapper.innerHTML = '';
+    for (let i = 0; i < totalSteps(); i++) {
+      const dot = document.createElement('button');
+      dot.className = 'cert-dot' + (i === current ? ' active' : '');
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrapper.appendChild(dot);
+    }
+  }
+
+  function updateDots() {
+    document.querySelectorAll('.cert-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+    });
+  }
+
+  function updateArrows() {
+    btnLeft.disabled  = current === 0;
+    btnRight.disabled = current >= totalSteps() - 1;
+  }
+
+  function goTo(index) {
+    current = Math.max(0, Math.min(index, totalSteps() - 1));
+
+    // Card width + gap
+    const cardWidth = cards[0].offsetWidth + 16;
+    track.style.transform = `translateX(-${current * visibleCount() * cardWidth}px)`;
+
+    updateDots();
+    updateArrows();
+  }
+
+  function next() { if (current < totalSteps() - 1) goTo(current + 1); else goTo(0); }
+  function prev() { goTo(current - 1); }
+
+  btnLeft.addEventListener('click',  () => { resetTimer(); prev(); });
+  btnRight.addEventListener('click', () => { resetTimer(); next(); });
+
+  // Auto-slide
+  function startTimer() { autoTimer = setInterval(next, 3500); }
+  function resetTimer()  { clearInterval(autoTimer); startTimer(); }
+
+  // Pause on hover
+  container.addEventListener('mouseenter', () => clearInterval(autoTimer));
+  container.addEventListener('mouseleave', startTimer);
+
+  // Rebuild on resize
+  window.addEventListener('resize', () => { buildDots(); goTo(0); });
+
+  buildDots();
+  updateArrows();
+  startTimer();
+})();
