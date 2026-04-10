@@ -108,3 +108,15 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
   });
+
+  document.querySelectorAll(".project-preview").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const card = btn.closest(".project-card");
+    const details = card.querySelector(".project-details");
+
+    const isOpen = btn.getAttribute("aria-expanded") === "true";
+
+    btn.setAttribute("aria-expanded", !isOpen);
+    details.style.maxHeight = isOpen ? null : details.scrollHeight + "px";
+  });
+});
