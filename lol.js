@@ -221,3 +221,37 @@ document.querySelectorAll('.project-card').forEach(card => {
   updateArrows();
   startTimer();
 })();
+
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
+  const response = await fetch("https://formspree.io/f/meepbdzv", {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  if (response.ok) {
+    showToast("Message sent successfully!");
+    form.reset();
+  } else {
+    showToast("Failed to send message. Try again.", "error");
+  }
+});
+
+const toast = document.getElementById("toast");
+
+function showToast(message, type = "success") {
+  toast.textContent = message;
+  toast.className = "toast show " + type;
+
+  setTimeout(() => {
+    toast.className = "toast";
+  }, 3000);
+}

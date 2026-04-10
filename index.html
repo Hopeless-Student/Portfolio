@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="lol.css">
   </head>
   <body>
-
+  <div id="toast" class="toast"></div>
   <!-- HEADER -->
   <header class="site-header">
     <div class="header-top">
@@ -23,8 +23,9 @@
     <nav>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
-      <a href="#process">Process</a>
+      <a href="#certifications">Certifications</a>
       <a href="#tech">Tech Stacks</a>
+      <a href="#process">Process</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -145,7 +146,7 @@
 
           </div>
 
-    <div class="project-card">
+          <div class="project-card" data-url="https://portfolio-ochre-theta-guafmhz1mx.vercel.app/">
         <div class="project-meta">
           <span class="project-title">Portfolio Website</span>
           <div class="project-submeta">
@@ -408,25 +409,24 @@
         <div class="contact-block">
           <p>If you want to talk about a project, collaboration, or anything interesting, feel free to send a message below. I usually reply as soon as I can.</p>
 
-          <form action="https://formspree.io/f/meepbdzv" method="POST" class="contact-form">
+          <form method="POST" class="contact-form" id="contactForm">
 
-          <div class="form-row">
-            <input type="text" name="name" placeholder="Your Name" required>
-          </div>
+            <div class="form-row">
+              <input type="text" name="name" placeholder="Your Name" required>
+            </div>
 
-          <div class="form-row">
-            <input type="email" name="email" placeholder="Your Email" required>
-          </div>
+            <div class="form-row">
+              <input type="email" name="email" placeholder="Your Email" required>
+            </div>
 
-          <div class="form-row">
-            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-          </div>
+            <div class="form-row">
+              <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            </div>
 
-          <!-- optional: subject line -->
-          <input type="hidden" name="_subject" value="New Portfolio Message">
+            <input type="hidden" name="_next" value="https://portfolio-ochre-theta-guafmhz1mx.vercel.app/#contact">
 
-          <button type="submit">Send Message</button>
-        </form>
+            <button type="submit">Send Message</button>
+          </form>
       </div>
 
     </div>

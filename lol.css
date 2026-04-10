@@ -732,7 +732,39 @@
   background: var(--accent);
   color: black;
 }
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  left: auto;
+  transform: translateY(-20px);
+  background: rgba(20, 20, 20, 0.95);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s ease;
+  border: 1px solid var(--border);
+  z-index: 9999;
+}
 
+/* show state */
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* success style */
+.toast.success {
+  border-color: #2ecc71;
+}
+
+/* error style */
+.toast.error {
+  border-color: #e74c3c;
+}
   /* ── FOOTER ── */
   .site-footer {
     border-top: 1px solid var(--border);
