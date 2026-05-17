@@ -1,0 +1,159 @@
+# EC Coaching Log
+
+A simple web-based coaching log system that allows users to input employee performance data, attach images, and export records as PDF, SQL text, and print-ready documents.
+
+---
+
+## 📌 Overview
+
+The **EC Coaching Log** is a single-page application built using **HTML, CSS, and JavaScript**.  
+It is designed for logging employee coaching records with structured input fields, image attachments, and export capabilities.
+
+---
+
+## 🚀 Features
+
+### 👤 Employee Information
+- Team
+- Employee Number
+- Name
+- Position
+
+---
+
+### 📝 Performance & Coaching Details
+- Performance Description (textarea)
+- Coaching Type (One-on-One / Side-by-Side)
+- Level (Top / Mid / Bottom)
+- Follow-up Date
+
+---
+
+### 📄 Statements
+- Employee Promise Statement
+- Supervisor Feedback Statement
+
+---
+
+### 🖼️ Image Upload System
+Supports:
+- Screenshot evidence
+- Employee signature
+- Supervisor signature
+- Manager signature
+
+**Features:**
+- Live preview using `URL.createObjectURL()`
+- Custom upload buttons (hidden file inputs)
+- Remove/reset image functionality
+- Automatic memory cleanup using `URL.revokeObjectURL()`
+
+---
+
+## 📤 Export Options
+
+### 1. PDF Export
+- Uses `html2canvas` + `jsPDF`
+- Captures full form layout as an image
+- Converts into A4-sized PDF
+- Downloads as `coaching_log.pdf`
+
+---
+
+### 2. SQL Export
+- Generates an `INSERT INTO` statement
+- Validates required fields before export
+- Downloads `.txt` file containing SQL query
+
+---
+
+### 3. Print Export
+- Uses `window.print()`
+- Print layout depends on browser settings
+- Recommended to enable “Background Graphics” in print dialog
+
+---
+
+## ⚙️ Validation Rules
+
+Before exporting, the system checks that the following are filled:
+
+- Team
+- Employee Number
+- Name
+- Position
+- Description
+- Coaching Type
+- Level
+- Follow-up Date
+- Promise Statement
+- Supervisor Statement
+- Signature Names
+
+If any required field is missing, export is blocked.
+
+---
+
+## 🧠 Core Logic
+
+### `getData()`
+Collects all form input values and uploaded files.
+
+### `isValid(data)`
+Ensures required fields are completed before export.
+
+### `buildSQL(data)`
+Creates SQL INSERT query from form data.
+
+### `generatePDF()`
+Captures the form using `html2canvas` and converts it to PDF.
+
+### `attachImagePreview()`
+Handles image upload preview and object URL management.
+
+### `clearImage()`
+Removes selected image and revokes object URL.
+
+### `handleDownload()`
+Main export function:
+- Exports SQL file
+- Generates PDF
+- Triggers print dialog
+
+---
+
+## 🧱 Tech Stack
+
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- html2canvas
+- jsPDF
+
+---
+
+## 📁 Project Structure
+/project-root
+│
+├── index.html
+├── app.js
+├── assets/
+│ └── homecredit_logo.jpeg
+└── README.md
+
+## ⚠️ Known Limitations
+
+- PDF export is image-based (not selectable text)
+- Large forms may scale slightly when exported
+- Print output depends on browser settings
+- No backend/database integration (SQL is generated as text only)
+
+---
+
+## 🔮 Future Improvements
+
+- True A4 print-first layout system
+- Multi-page PDF optimization
+- Backend database integration
+- Auto-save draft (localStorage)
+- Mobile responsiveness improvements

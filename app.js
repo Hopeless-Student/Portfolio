@@ -46,7 +46,15 @@
             data.empNum &&
             data.name &&
             data.position &&
-            data.desc
+            data.desc &&
+            data.type &&
+            data.level &&
+            data.followup &&
+            data.promise &&
+            data.supervisor &&
+            data.supervisor_signature &&
+            data.employee_signature &&
+            data.manager_signature
         );
     }
 
@@ -90,20 +98,43 @@
         URL.revokeObjectURL(url);
     }
 
-    function generatePDF() {
+        function generatePDF() {
         const { jsPDF } = window.jspdf;
         const element = document.getElementById("coachingForm");
 
-        html2canvas(element).then(canvas => {
+        html2canvas(element, {
+            scale: 2,
+            useCORS: true
+        }).then(canvas => {
+
             const imgData = canvas.toDataURL("image/png");
 
             const pdf = new jsPDF("p", "mm", "a4");
 
-            const imgProps = pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
 
-            pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+            const margin = 10;
+
+            const imgWidth = pageWidth - margin * 2;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            pdf.addImage(imgData, "PNG", margin, position + margin, imgWidth, imgHeight);
+
+            heightLeft -= pageHeight;
+
+            while (heightLeft > 0) {
+                position -= pageHeight;
+
+                pdf.addPage();
+                pdf.addImage(imgData, "PNG", margin, position + margin, imgWidth, imgHeight);
+
+                heightLeft -= pageHeight;
+            }
+
             pdf.save("coaching_log.pdf");
         });
     }
@@ -149,7 +180,7 @@
             preview.style.display = "block";
         });
     }
-    
+
     function clearImage(inputId, previewId) {
         const input = document.getElementById(inputId);
         const preview = document.getElementById(previewId);

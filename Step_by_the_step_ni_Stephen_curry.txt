@@ -1,0 +1,39 @@
+Step by the step ni Stephen curry pano gumawa calendar
+1. create a table for months & year plain text
+2. create a start date using: 
+=DATE($P$22,MONTH("1 "&$L$22),1)
+where $P$22 is the year on drop down and $L$22 is the month on drop down.
+
+Test to check if its correct start date and valid:
+=TEXT($D$5,"mmmm dd yyyy") --> output the whole
+=ISNUMBER(D5) --> should be true
+=MONTH(D5) --> should be the int of the month
+=COUNTA(K24#) -->counts the spill of days of the start date. Where K24 is the start of spill
+=MAX(K24#) -->counts the max 
+=TEXT(MAX(K24#),"mmmm dd yyyy") --> to check the max date of the 1st day in spill range
+=AND(
+MONTH($D$5)=MONTH(MAX(K24#)),
+DAY(MAX(K24#))=DAY(EOMONTH($D$5,0))
+) --> check if the month int and month of the max is equal and the day max of the spill and end of month is equal.
+
+3. create a spill range for the dynamic dates using
+=SEQUENCE(1,DAY(EOMONTH($D$5,0)),$D$5,1)
+where $D$5 is the start date cell
+4. create the days in a week using
+=TEXT(K24#,"ddd") 
+5. get the working counts from the task table using:
+=COUNTIFS(task_table[[Name]:[Name]],$J26,task_table[[Date]:[Date]],K$24)>0
+where $J26 is the 1st name at the side of calendar and K is the 1st date in the calendar.
+
+6. for conditional formatting of colors per category use 
+=COUNTIFS($H$5:$H1000,$J26,$G$5:$G1000,K$24,$E$5:$E1000,"Teaching")>0
+where $H$5:$H1000 is the name range in table,$G$5:$G1000 is the date range in the table, and $E$5:$E1000 is the category range in the table.
+
+7. create a crit day for cell with crit days using
+=COUNTIFS($H$5:$H1000,$J26,$I$5:$I1000,K$24)>0
+where $H$5:$H1000 is the name range in table,$I$5:$I1000 is the crit date range in the table.
+check the stop if true and place it at top for priority condition.
+
+8. add the range color of where they start up to crit day using 
+=COUNTIFS( $H$5:$H$1000,$J26, $G$5:$G$1000,"<"&K$24, $I$5:$I$1000,">="&K$24 )>0
+where $H$5:$H$1000 is the name range to check which name is the row. $G$5:$G$1000 for the date range in the table checking if "<"&K$24 start date is on the current date. $I$5:$I$1000,">="&K$24 and $I$5:$I$1000 is the crit date range checking if date is still before the crit date range.
