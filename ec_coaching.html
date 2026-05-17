@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EC Coaching Log</title>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #ffffff;
+    }
+
+    .coaching-form {
+        background-color: #7b0000;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        color: rgb(0, 0, 0);
+        text-align: center;
+    }
+    .form-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0px;
+    }
+
+    .form-table th,
+    .form-table td {
+        border: 1px solid black;
+        padding: 8px;
+        vertical-align: top;
+    }
+
+    .header-row th {
+        background-color: #7b0000;
+        color: white;
+        text-align: center;
+    }
+
+    input,
+    textarea,
+    select {
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .image-section {
+        margin-top: 10px;
+    }
+
+    #screenshotPreview, #supervisorSignPreview, #employeeSignPreview, #managerSignPreview {
+    max-width: 100%;
+    max-height: 150px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    object-fit: contain;
+    display: none;
+    align-self: center;
+    }
+
+    
+    .signature-box {
+        text-align: center;
+    }
+
+    .signature-box img {
+        display: block;
+        margin: 8px auto;
+        
+    }
+    .sign-line {
+        border-top: 1px solid black;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #7b0000;
+        color: white;
+    }
+
+    @media print {
+
+        button,
+        input[type="file"] {
+            display: none !important;
+        }
+
+        body {
+            margin: 0;
+        }
+        #controls {
+            display: none !important;
+        }
+
+}
+
+    </style>
+</head>
+
+<body>
+
+<h2>EC Coaching Log</h2>
+
+<form id="coachingForm">
+
+    <!-- TOP HEADER -->
+    <table class="form-table">
+
+        <tr class="header-row">
+            <th>TEAM</th>
+            <th>EMPLOYEE #</th>
+            <th>NAME</th>
+            <th>POSITION</th>
+        </tr>
+
+        <tr>
+            <td><input id="team"></td>
+            <td><input id="empNum"></td>
+            <td><input id="name"></td>
+            <td><input id="position"></td>
+        </tr>
+
+    </table>
+
+    <!-- DESCRIPTION + SIDE DETAILS -->
+    <table class="form-table">
+
+        <tr class="header-row">
+            <th style="width: 70%;">PERFORMANCE DESCRIPTION</th>
+            <th style="width: 30%;">COACHING DETAILS</th>
+        </tr>
+
+        <tr>
+
+            <!-- LEFT SIDE -->
+            <td>
+
+                <textarea id="desc"></textarea>
+
+                <div class="image-section">
+                    <label>Attach Screenshot:</label>
+                    <div class="preview-box">
+                        <img id="screenshotPreview">
+                    </div>
+
+                    <input type="file" accept="image/*" id="screenshot">
+                    <button type="button" onclick="clearImage('screenshot', 'screenshotPreview')">
+                        Remove
+                    </button>
+                </div>
+
+            </td>
+
+            <!-- RIGHT SIDE -->
+            <td>
+
+                <label>Coaching Type</label>
+                <select id="type">
+                    <option value="">Select</option>
+                    <option>One on One</option>
+                    <option>Side by Side</option>
+                </select>
+
+                <label>Level</label>
+                <select id="level">
+                    <option value="">Select</option>
+                    <option>Top</option>
+                    <option>Mid</option>
+                    <option>Bottom</option>
+                </select>
+
+                <label>Follow-up Date</label>
+                <input id="followup" type="date">
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    <!-- PROMISE / SUPERVISOR -->
+    <table class="form-table">
+
+        <tr class="header-row">
+            <th>PROMISE STATEMENT</th>
+            <th>SUPERVISOR STATEMENT</th>
+        </tr>
+
+        <tr>
+            <td>
+                <textarea id="promise"></textarea>
+            </td>
+
+            <td>
+                <textarea id="supervisor"></textarea>
+            </td>
+        </tr>
+
+    </table>
+
+    <!-- SIGNATURES -->
+    <table class="form-table">
+
+        <tr class="header-row">
+            <th>EMPLOYEE</th>
+            <th>SUPERVISOR</th>
+            <th>MANAGER</th>
+        </tr>
+
+        <tr>
+
+            <td class="signature-box">
+                <input id="supervisor_signature" type="text" placeholder="Supervisor's Name">
+
+                <div class="preview-box">
+                    <img id="supervisorSignPreview">
+                </div>
+
+                <input type="file" accept="image/*" id="supervisorSign">
+                <button type="button" onclick="clearImage('supervisorSign', 'supervisorSignPreview')">
+                    Remove
+                </button>
+
+                <div class="sign-line"></div>
+                <p>Name and Signature</p>
+            </td>
+
+            <td class="signature-box">
+                <input id="employee_signature" type="text" placeholder="Employee's Name">
+                <img id="employeeSignPreview">
+                <input type="file" accept="image/*" id="employeeSign">
+                    <button type="button" onclick="clearImage('employeeSign', 'employeeSignPreview')">
+                        Remove
+                    </button>
+                <div class="sign-line"></div>
+                <p>Name and Signature</p>
+            </td>
+
+            <td class="signature-box">
+                <input id="manager_signature" type="text" placeholder="Manager's Name">
+                <img id="managerSignPreview">
+                <input type="file" accept="image/*" id="managerSign">
+                    <button type="button" onclick="clearImage('managerSign', 'managerSignPreview')">
+                        Remove
+                    </button>
+                <div class="sign-line"></div>
+                <p>Name and Signature</p>
+            </td>
+
+        </tr>
+
+    </table>
+
+    <button type="button" onclick="handleDownload()">
+        EXPORT COACHING LOG
+    </button>
+
+</form>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app.js"></script>
+<script>
+
+</script>
+</body>
+</html>
