@@ -1,0 +1,26 @@
+// for the updated validation
+
+function exportSQL() {
+    const data = getData();
+
+    if (!isValid(data)) {
+        alert("Fill all fields first");
+        return false;
+    }
+
+    const sql = buildSQL(data);
+    downloadFile(sql, `coaching_log_${data.empNum}.txt`);
+
+    return true;
+}
+
+// fix to the handler of download all button
+
+function handleDownload() {
+    const ok = exportSQL();
+
+    if (!ok) return;
+
+    generatePDF();
+    window.print();
+}
