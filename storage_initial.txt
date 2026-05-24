@@ -1,0 +1,190 @@
+
+/**
+ * ================================
+ * COACHING LIMIT MODULE (FRONTEND)
+ * ================================
+ * Purpose:
+ * - Controls how many coaching logs an employee/supervisor can create
+ * - Works using in-memory array + optional localStorage persistence
+ * - Designed for OJT / frontend-only environment
+ *
+ * NOTE:
+ * - This is NOT secure enforcement (frontend can be bypassed)
+ * - Proper enforcement should be backend/database-based
+ * - This is mainly for UI validation + business rule simulation
+ */
+
+/* ================================
+   1. DATA SOURCE
+   ================================ */
+
+/**
+ * Array that holds all coaching records in memory.
+ * Each record should follow a consistent structure.
+ */
+let coachingLogs = [];
+
+/**
+ * OPTIONAL: Load existing logs from browser storage
+ * Use this if you want persistence across refresh
+ */
+function loadLogs() {
+  const stored = localStorage.getItem("coachingLogs");
+  coachingLogs = stored ? JSON.parse(stored) : [];
+}
+
+/**
+ * Save logs to browser storage
+ * Keeps data even after refresh (same browser only)
+ */
+function saveLogs() {
+  localStorage.setItem("coachingLogs", JSON.stringify(coachingLogs));
+}
+
+
+/* ================================
+   2. CONFIGURATION (RULE SETTINGS)
+   ================================ */
+
+/**
+ * This controls how the limit system behaves.
+ * You can modify this anytime without touching logic.
+ */
+const LIMIT_CONFIG = {
+  enabled: true,          // turn system ON/OFF
+  max: 3,                 // maximum allowed coaching entries
+  scope: "empNum"         // rule basis:
+                          // "empNum" = per employee
+                          // "svName" = per supervisor
+                          // "global" = total system limit
+};
+
+
+/* ================================
+   3. CORE UTILITY FUNCTION
+   ================================ */
+
+/**
+ * Returns number of logs matching a rule scope.
+ *
+ * @param {Object} entry - new coaching entry being submitted
+ * @returns {number} count of matching records
+ */
+function getCoachingCount(entry) {
+  switch (LIMIT_CONFIG.scope) {
+
+    case "empNum":
+      return coachingLogs.filter(
+        log => log.empNum === entry.empNum
+      ).length;
+
+    case "svName":
+      return coachingLogs.filter(
+        log => log.svName === entry.svName
+      ).length;
+
+    case "global":
+      return coachingLogs.length;
+
+    default:
+      return 0;
+  }
+}
+
+
+/* ================================
+   4. VALIDATION FUNCTION
+   ================================ */
+
+/**
+ * Checks if a new entry is allowed based on limit rules.
+ *
+ * @param {Object} entry - new coaching entry
+ * @returns {Object} result object
+ */
+function validateCoachingLimit(entry) {
+
+  // If system is disabled, always allow
+  if (!LIMIT_CONFIG.enabled) {
+    return { ok: true };
+  }
+
+  const count = getCoachingCount(entry);
+
+  // If limit exceeded, block submission
+  if (count >= LIMIT_CONFIG.max) {
+    return {
+      ok: false,
+      message: `Limit reached: ${LIMIT_CONFIG.max} entries allowed`
+    };
+  }
+
+  return { ok: true };
+}
+
+
+/* ================================
+   5. MAIN SUBMISSION FLOW
+   ================================ */
+
+/**
+ * Call this when user submits a coaching log.
+ *
+ * @param {Object} entry - coaching data
+ * @returns {boolean} success/failure
+ */
+function submitCoaching(entry) {
+
+  // Step 1: validate limit
+  const result = validateCoachingLimit(entry);
+
+  if (!result.ok) {
+    alert(result.message); // UI feedback
+    return false;
+  }
+
+  // Step 2: save data
+  coachingLogs.push(entry);
+
+  // Step 3: persist (optional)
+  saveLogs();
+
+  return true;
+}
+
+
+/* ================================
+   6. ENTRY STRUCTURE (REFERENCE)
+   ================================ */
+
+/**
+ * Expected format of a coaching entry:
+ *
+ * {
+ *   empNum: "12345",
+ *   empName: "Juan Dela Cruz",
+ *   svName: "Supervisor A",
+ *   date: "2026-05-24",
+ *   coachingType: "performance",
+ *   notes: "some text here"
+ * }
+ */
+
+
+/* ================================
+   7. HOW TO USE (STEP-BY-STEP)
+   ================================
+
+1. Load existing data on page start:
+   loadLogs();
+
+2. When user submits form:
+   submitCoaching(formData);
+
+3. System automatically:
+   - checks limit
+   - blocks if exceeded
+   - saves if allowed
+
+================================
+*/	
