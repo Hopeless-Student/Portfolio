@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EC Coaching Log</title>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    }
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+    
+    h2 {
+        flex: 1;
+        text-align: center;
+        margin: auto;
+	padding: 3% 0;
+        
+    }
+
+    .logo {
+        width: 100px;
+        height: auto;
+        margin: 0;
+	border-radius:10px;
+    }
+    .container {
+    max-width: 850px;   /* controls "thinness" */
+    margin: 20px auto;  /* centers it */
+    padding: 10px;
+    border: 2px solid black;
+    background-color: #E0DEDE;
+    }
+    .coaching-form {
+        background-color: #7b0000;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 0px;
+        border: 2px solid black;
+    }
+    
+    .form-table td{
+      background-color: white;
+    }
+    .form-table th,
+    .form-table td {
+        border: 1px solid black;
+        padding: 8px;
+        vertical-align: top;
+        font-size: 12px;
+    }
+
+    .header-row th {
+        background-color: #7b0000;
+        color: white;
+        text-align: center;
+        font-weight: normal;
+        font-size: 12px;
+    }
+
+    input,
+    textarea,
+    select {
+        width: 100%;
+        box-sizing: border-box;
+    
+        border: 1px solid transparent;
+    
+        padding: 6px 8px;
+    
+        font-size: 12px;
+        line-height: 1.4;
+    
+        min-height: 32px;
+    
+        background: white;
+        color: black;
+    
+        overflow: visible;
+    }
+
+    input::placeholder {
+        opacity: 0.5; /* Makes text 50% transparent */
+    }
+    textarea {
+        width: 100%;
+        min-height: 120px;
+        resize: none;
+        overflow: hidden;
+    
+        height: auto;
+    
+        display: block;
+    
+        white-space: pre-wrap;
+        word-break: break-word;
+    
+        padding: 6px 8px;
+    
+        font-size: 12px;
+        line-height: 1.4;
+    
+        box-sizing: border-box;
+    }
+
+    /* printable textarea clone */
+    .textarea-print {
+        display: none;
+        width: 100%;
+        min-height: 120px;
+        padding: 6px 8px;
+        font-size: 12px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
+        background: white;
+        color: black;
+        border: 1px solid transparent;
+    }
+
+    /* ONLY this controls visibility */
+    .capture-mode .textarea-print {
+        display: block !important;
+    }
+
+    .file-wrapper button {
+        padding: 6px 14px;
+        border-radius: 6px;
+        border: none;
+        background: #7b0000;
+        color: white;
+        font-size: 12px;
+        transition: 0.2s;
+        margin-bottom: 5px;
+    }
+
+    .file-wrapper button:hover {
+        opacity: 0.85;
+	      background: red;
+    }
+    #downloadBtn:hover, #resetBtn:hover{
+	    background-color: red;
+    }
+    #screenshotPreview{
+      max-width: 100%;
+      max-height: fit-content;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      object-fit: contain;
+      display: none;
+      align-self: left;
+      
+    }
+    
+    #supervisorSignPreview, #employeeSignPreview {
+    max-width: 100%;
+    max-height: 30px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    object-fit: contain;
+    display: none;
+    align-self: left;
+    }
+
+    .upload-group {
+        text-align: center;
+    }
+
+	.upload-group {
+    	display: flex;
+    	flex-direction: column;
+    	align-items: center;
+	}
+
+    .upload-group img {
+        margin-bottom: 8px;
+        max-height: 140px;
+        object-fit: contain;
+    }
+    .signature-box {
+        text-align: left;
+    }
+
+    .signature-box img {
+        display: block;
+        margin: 8px auto;
+        
+    }
+    .sign-line {
+        border-top: 1px solid black;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #7b0000;
+        color: white;
+    }
+
+    input[type="file"] {
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #7b0000;
+        color: white;
+        width: auto;
+        margin-top: 5px;
+    }
+    .acknowledgement{
+      font-size: 11px;
+    }
+    .footer-note{
+      font-size: 11px;
+      background-color: #ffffff;
+    }
+    .acknowledgement-desc{
+      font-size: 11px;
+      text-align: center;
+      font-style: italic;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);;
+      background-color: #ffffff;
+    }
+    
+    .employee-name-cell {
+    width: 30%;
+    }
+    
+    .signature-cell {
+        width: 50%;
+    }
+    
+    .date-cell {
+        width: 20%;
+    }
+    .emp_action, .sv_action{
+      width: 50%;
+    }
+    .signature-header{
+      background-color: black;
+      color: white;
+      font-weight: normal;
+      font-size: 12px;
+    }
+    #statusBox {
+        margin: 10px 0;
+        padding: 10px;
+        font-size: 12px;
+        display: none;
+        border: 1px solid transparent;
+    }
+    
+    #statusBox.success {
+        display: block;
+        background: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+    }
+    
+    #statusBox.error {
+        display: block;
+        background: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+    }
+    
+    .char-count {
+        text-align: right;
+        font-size: 11px;
+        margin-top: 3px;
+    }
+
+  
+  /* Handle the html2canvas "capture-mode" toggle */
+  .capture-mode textarea, 
+  .capture-mode input, 
+  .capture-mode select { display: none !important; }
+
+  .capture-mode .char-count {
+      display: none !important;
+  }
+
+  .capture-mode .textarea-print .capture-mode .input-print { display: block !important; }
+
+  .input-print {
+      display: none;
+      width: 100%;
+      padding: 6px 8px;
+  
+      font-size: 12px;
+      box-sizing: border-box;
+      background: white;
+      border: 1px solid transparent;
+  }
+
+    /* show during capture of PDF*/
+    .capture-mode .input-print {
+        display: block !important;
+    }
+    
+    /* hide real inputs only in capture */
+    .capture-mode input,
+    .capture-mode select {
+        display: none !important;
+    }
+    
+    
+    /*hide btns before using html2canvas*/
+    .hide-in-pdf {
+        display: none !important;
+    }
+
+
+    @media print {
+
+        button, 
+        input[type="file"] {
+            display: none !important;
+        }
+
+        body {
+            margin: 0;
+        }
+        #controls {
+            display: none !important;
+        }
+        input[type="date"]:invalid {
+            color: transparent;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background: transparent;
+            }
+
+        /* hide default "Select" text if nothing chosen */
+        select:invalid {
+            color: transparent;
+        }
+
+         textarea, input, select {display: none !important;}
+        .textarea-print, .input-print { display: block !important; }
+
+        #statusBox{
+        display: none !important;;
+        }
+
+      	.char-count{
+      	  display: none !important;
+      	}
+
+        textarea {
+          white-space: pre-wrap !important;
+          overflow: visible !important;
+          height: auto !important;
+        }
+
+        .textarea-print {
+          display: block !important;
+          white-space: pre-wrap;
+          border: 1px solid #ccc; /* Optional: give it a slight border for the look */
+          padding: 8px;
+        }
+        
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <form id="coachingForm">
+        
+          <div class="header">
+              <img class="logo" id="logo" alt="homecreditlogo"> 
+              <h2>EC COACHING LOG</h2>
+          </div>
+  
+          <!-- TOP HEADER -->
+          <table class="form-table">
+  
+              <tr class="header-row">
+                  <th>Team:</th>
+                  <th>Employee Name:</th>
+                  <th>Employee Number:</th>
+                  <th>Position title:</th>
+              </tr>
+  
+              <tr>
+                  <td> <!--TEAM NAME INPUT-->
+                    <input id="team" required>
+  		              <div id="team_print" class="input-print"></div> 
+  		            </td>
+  		            
+                  <td> <!--EMPLOYEE NAME INPUT-->
+                    <input id="name" required>
+  		              <div id="name_print" class="input-print"></div>
+  		            </td>
+  		            
+                  <td> <!--EMPLOYEE NUMBER INPUT-->
+                    <input id="empNum" type="text" inputmode="numeric" maxlength="6" onkeyup="checkEmpNum();" required>
+  		              <div id="empNum_print" class="input-print"></div>
+                    <small id="empNumError"></small>
+                  </td>
+                  
+                  <td> <!--POSITION NAME INPUT-->
+                    <input id="position" required>
+  		              <div id="position_print" class="input-print"></div>
+  		            </td>
+              </tr>
+  
+          </table>
+  
+          <!-- DESCRIPTION + SIDE DETAILS -->
+          <table class="form-table">
+  
+              <tr class="header-row">
+                  <th style="width: 50%;">Describe the performance problem/issue:</th>
+                  <th style="width: 25%;">Coaching Details:</th>
+                  <th style="width: 25%;">Channel Details:</th>
+              </tr>
+  
+              <tr>
+                  <td> <!-- PERFORMANCE DESCRIPTION TEXT AREA (LEFT COLUMN) -->
+                      <textarea id="desc" required maxlength="1000"></textarea>
+  		                <div id="desc_print" class="textarea-print"></div>
+  			              <div id="descMaxCharCount" class="char-count">0/1000</div>
+  
+                      <div class="upload-group">
+                          <img id="screenshotPreview">
+                          
+                          <div class="file-wrapper pdf-controls">
+                              <button type="button" onclick="document.getElementById('screenshot').click()">
+                                  Upload
+                              </button>
+  
+                              <button type="button" onclick="clearImage('screenshot','screenshotPreview')">
+                                  Remove
+                              </button>
+  
+                              <input type="file" id="screenshot" accept="image/*" hidden>
+                          </div>
+                      </div>
+  
+                  </td>
+  
+                  <td> <!-- COACHING DETAILS INPUT (MID COLUMN/SIDE) -->
+  
+                      <label>Coaching Type</label> <!-- COACHING TYPE -->
+                      <select id="coaching_type" disabled="true" required>
+                          <option value="" disabled selected>Select</option>
+              						<option value="CTS">Target Setting</option>
+              						<option value="CNU">Numbers</option>
+              						<option value="CCL">Call Listening</option>
+              						<option value="CCB">Call Behavior</option>
+              						<option value="CBH">Behavioral</option>
+              						<option value="CME">Month-End</option>
+              						<option value="CVL">Violation</option>
+              						<option value="CTB">TeachBack Process</option>
+              						<option value="CPE">PIP Enrollment</option>
+              						<option value="CPI">PIP Progression</option>
+              						<option value="CCM">Compliants Management</option>
+              						<option value="CFU">Follow-up</option>
+              						<option value="COH">Others</option>
+                      </select>
+                      <div id="coaching_type_print" class="input-print"></div>
+                      
+                      <!--additional coaching type when "others" is chosen-->
+                      <select id="coaching_others" disabled="true">
+                          <option value="" disabled selected>Select</option>
+              						<option value="CGS">Goal Strategy</option>
+              						<option value="COC">COC Policy</option>
+              						<option value="CBR">Building Rapport to CA</option>
+              						<option value="CFL">Follow-up 1</option>
+              						<option value="CFW">Follow-up 2</option>
+              						<option value="CFT">Follow-up 3</option>
+              						<option value="CFI">For issuance</option>
+                      </select>
+                      <div id="coaching_others_print" class="input-print"></div>
+                      
+                      <label>Col Ticket For Follow-up</label>  <!-- COL TICKET NUMBER INPUT -->
+                      <input type="text" id="col_ticket" placeholder="col-123456" disabled="true" required/>
+  		                <div id="col_ticket_print" class="input-print"></div>
+                    
+                  </td>
+                  
+                  <td> <!-- CHANNEL DETAILS INPUT (RIGHT SIDE COLUMN) -->
+                    
+                      <label>Channel</label> <!-- CHANNEL -->
+                  				<select name="channel" id="channel_id" disabled="true" required>
+                  						<option value="">Select</option>	
+                  						<option value="CNO">ONE ON ONE</option>
+                  						<option value="CBS">SIDE BY SIDE</option>
+                  						<option value="CTC">TEAM COACHING</option>
+                  						<option value="CTR">TRIAD COACHING</option>
+                  				</select>
+                				  <div id="channel_id_print" class="input-print"></div>
+                				  
+                      <label>Performance Level</label> <!-- PERFORMANCE LEVEL -->
+                          <select id="level" disabled="true" required>
+                              <option value="">Select</option>
+                              <option>Top</option>
+                              <option>Mid</option>
+                              <option>Bottom</option>
+                          </select>
+    			                <div id="level_print" class="input-print"></div>
+    			                
+                      <label>Follow-up Date</label> <!-- FOLLOW UP DATE FOR COACHING -->
+                          <input id="followup" type="date" disabled="true" class="limit_past" required>
+    		                  <div id="followup_print" class="input-print"></div>
+    		                  
+                  </td>
+  
+              </tr>
+  
+          </table>
+  
+          <!-- PROMISE / SUPERVISOR -->
+          <table class="form-table">
+  
+              <tr class="header-row">
+                  <th>Employee’s action plans and commitment:</th>
+                  <th>Support from Supervisor:</th>
+              </tr>
+  
+              <tr> <!-- TEXT AREAS FOR PROMISE AND COMMITMENTS -->
+                
+                  <td class="emp_action"> <!-- EMPLOYEE'S ACTION AND COMMITMENT TEXT AREA-->
+                      <textarea id="promise" required maxlength="1000"></textarea>
+  			               <div id="promise_print" class="textarea-print"></div>
+                       <div id="empMaxCharCount" class="char-count">0/1000</div>
+                  </td>
+  
+                  <td class="sv_action"> <!--SUPERVISOR ACTIONS' AND SUPPORT TEXT AREA -->
+                      <textarea id="supervisor" required maxlength="1000"></textarea>
+                      <div id="svMaxCharCount" class="char-count">0/1000</div>
+  		                <div id="supervisor_print" class="textarea-print"></div>
+                  </td>
+                  
+              </tr>
+  
+          </table>
+  
+      <!--dito lagay acknow-->
+          <div>
+            <p class="acknowledgement"><b>ACKNOWLEDGEMENT</b></p>
+              <div class="acknowledgement-desc">
+                <p>This Coaching Form is given to help you improve your performance going forward. It will not have an impact on any of the following: a) merit increase; b) 
+                  variable pay; c) promotion eligibility; and d) internal lateral transfers.
+                  <br>However, failure to continuously achieve or sustain improvement and/or hit your targets, despite all the support and coaching extended, may lead to further 
+                  corrective action, such as failed KPI rating or failed performance evaluation, and/or enrollment in a PIP, which can include up to termination of your 
+                  employment.
+                </p>
+              </div>
+          </div>     
+          
+          <!-- SIGNATURES -->
+          <table class="form-table">
+  
+            <!-- EMPLOYEE SECTION OF SIGNATURE -->
+            <tr>
+      
+                <td class="signature-box employee-name-cell"> <!-- SYNCED NAME OF THE EMPLOYEE FOR SIGNATURE -->
+    	            <p id="employee_signature"></p>
+                </td>
+        
+                <td class="signature-box signature-cell"> <!-- UPLOAD THE SIGNATURE -->
+            
+                    <div class="upload-group">
+                        <img id="employeeSignPreview">
+            
+                        <div class="file-wrapper pdf-controls">
+                            <button type="button" onclick="document.getElementById('employeeSign').click()">
+                                Upload
+                            </button>
+            
+                            <button type="button" onclick="clearImage('employeeSign', 'employeeSignPreview')">
+                                Remove
+                            </button>
+            
+                            <input type="file" id="employeeSign" accept="image/*" hidden>
+                        </div>
+                    </div>
+            
+                </td>
+        
+                <td class="signature-box date-cell"> <!-- DATE PICKER FOR THE EMPLOYEE SIGN --> 
+                    <input id="sign-date" type="date" class="limit_past"required>
+        	          <div id="sign-date_print" class="input-print"></div>
+                </td>
+      
+            </tr>
+            
+            <tr>
+                <th class="signature-header">Employee Name</th>
+                <th class="signature-header">Signature of Employee</th>
+                <th class="signature-header">Date</th>
+            </tr>
+      
+              <!-- SUPERVISOR SECTION FOR SIGNATURE -->
+            <tr>
+      
+                <td class="signature-box employee-name-cell"> <!-- INPUT NAME FOR THE SUPERVISOR -->
+                  <input id="supervisor_signature" type="text" required>
+    	            <div id="supervisor_signature_print" class="input-print"></div>
+                </td>
+        
+                <td class="signature-box signature-cell"> <!-- UPLOAD THE SIGNATURE -->
+              
+                      <div class="upload-group">
+                          <img id="supervisorSignPreview">
+              
+                          <div class="file-wrapper pdf-controls">
+                              <button type="button" onclick="document.getElementById('supervisorSign').click()">
+                                  Upload
+                              </button>
+              
+                              <button type="button" onclick="clearImage('supervisorSign', 'supervisorSignPreview')">
+                                  Remove
+                              </button>
+              
+                              <input type="file" id="supervisorSign" accept="image/*" hidden>
+                          </div>
+                      </div>
+            
+                </td>
+        
+                <td class="signature-box date-cell"> <!-- DATE PICKER FOR THE SUPERVISOR SIGN -->
+                    <input id="supervisor-sign-date" type="date" class="limit_past" required>
+        		        <div id="supervisor-sign-date_print" class="input-print"></div>
+                </td>
+      
+            </tr>
+            
+            <tr>
+                <th class="signature-header">Immediate Supervisor</th>
+                <th class="signature-header">Signature of Immediate Supervisor</th>
+                <th class="signature-header">Date</th>
+            </tr>
+      
+      
+          </table>
+  
+          <p class="footer-note">Note: Immediate manager and employee shall keep a copy of this form.<br> 
+              Furthermore, immediate manager has the option to submit a copy to HRSS for 201 filing. </p>
+              
+          <button type="button" id="downloadBtn" onclick="handleDownload()" class="pdf-controls">
+              EXPORT COACHING LOG
+          </button>
+          
+          <button type="button" id="resetBtn" onclick="resetForm()" class="pdf-controls">
+              RESET FORM
+          </button>
+          
+  	      <div id="statusBox"></div>
+      </form>
+    </div>
+    
+<script src="logo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app-5-25-26-V2.js"></script>
+
+</body>
+</html>	
