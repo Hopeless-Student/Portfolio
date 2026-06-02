@@ -1,0 +1,79 @@
+code snippet for the updated logic of coaching type and dialer ticket
+
+Replace requiresColTicket() if the value is available
+function requiresColTicket() {
+    const value = document.getElementById("coaching_type").value;
+    return value !== "FASTBALL";
+}
+
+change listener (fix both places)
+BEFORE (broken)
+const data = getData();
+col_ticket.disabled = !requiresColTicket();
+
+AFTER (clean)
+coaching_type.addEventListener('change', function () {
+    col_ticket.disabled = !requiresColTicket();
+
+    if (!requiresColTicket()) {
+        col_ticket.value = "";
+    }
+});
+
+For q'{ }' fields:
+
+Use RAW VALUE ONLY:
+
+q'{${d.desc}}'
+q'{${d.promise}}'
+q'{${d.supervisor}}'
+✔ For normal quoted fields:
+
+Keep escapeSQL:
+
+'${escapeSQL(d.team)}'
+
+create a proper YYYYMMDD date function
+
+Add this helper:
+
+function getFormattedDateYYYYMMDD() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+
+    return `${year}${month}${day}`;
+}
+
+clean coaching type for file name 
+
+function getCoachingTypeLabel() {
+    const select = document.getElementById("coaching_type");
+    return select.options[select.selectedIndex]?.text || "Unknown";
+}
+
+NEW VERSION (dynamic filename)
+
+Inside handleDownload() BEFORE PDF save:
+
+const data = getData();
+
+const fileName = `${data.name}_${getCoachingTypeLabel()}_${getFormattedDateYYYYMMDD()}.pdf`;
+
+pdf.save(fileName);
+
+
+sanitize the file name first
+function sanitizeFileName(str) {
+    return String(str)
+        .replace(/[\/\\:*?"<>|]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+final version real na talaga
+const fileName = `${sanitizeFileName(data.name)}_${sanitizeFileName(getCoachingTypeLabel())}_${getFormattedDateYYYYMMDD()}.pdf`;
+
+pdf.save(fileName);

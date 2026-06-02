@@ -78,12 +78,20 @@
 
     // setting disabled to false
     function toggleFields(disabled){
+      const colTicket = document.getElementById('col_ticket');
+
       document.getElementById('coaching_type').disabled = disabled;
       document.getElementById('col_ticket').disabled = disabled; 
       document.getElementById('channel_id').disabled = disabled; 
       document.getElementById('level').disabled = disabled; 
       document.getElementById('followup').disabled = disabled;
       
+      if (!disabled) {
+            colTicket.disabled = !requiresColTicket();
+        } else {
+            colTicket.disabled = true;
+        }
+        
       }
 
     // Activation of the other coaching types when "others" is selected
@@ -101,6 +109,17 @@
     }
 
     });
+
+    coaching_type.addEventListener('change', function () {
+    const data = getData();
+
+    col_ticket.disabled = !requiresColTicket();
+
+    if (!requiresColTicket()) {
+        col_ticket.value = "";
+        }
+    });
+
     
     // validation to prevent past dates
   	const minDate = new Date().toISOString().split('T')[0];
@@ -295,7 +314,7 @@
         data.position &&
         data.desc &&
         data.coaching_type &&
-        data.col_ticket &&
+        (!requiresColTicket() || data.col_ticket) &&
         data.channel_id &&
         data.level &&
         data.followup &&
@@ -310,6 +329,10 @@
 
     // You can edit this function according to what query you want but double check the ID's of the input fields
     function buildSQL(d) {
+            const colTicketValue = requiresColTicket()
+        ? escapeSQL(d.col_ticket)
+        : null;
+
         return `
         INSERT INTO coaching_log 
         (   team, 
@@ -330,14 +353,14 @@
         '${escapeSQL(d.empNum)}', 
         '${escapeSQL(d.name)}', 
         '${escapeSQL(d.position)}', 
-        '${escapeSQL(d.desc)}', 
+        q'{${d.desc}}', 
         '${escapeSQL(d.coaching_type)}', 
-      	'${escapeSQL(d.col_ticket)}',
+      	'${colTicketValue}',
       	'${escapeSQL(d.channel_id)}',
         '${escapeSQL(d.level)}', 
         '${escapeSQL(d.followup)}', 
-        '${escapeSQL(d.promise)}', 
-        '${escapeSQL(d.supervisor)}');
+        q'{${d.promise}}', 
+        q'{${d.supervisor}}');
         `;
     }
 
@@ -538,3 +561,10 @@
 }
 
 // console.log(base64_logohomecredit); uncomment for check of base64_logohomecredit if loading
+
+function requiresColTicket() {
+    const select = document.getElementById("coaching_type");
+    const text = select.options[select.selectedIndex]?.text || "";
+
+    return !text.includes("Fastball");
+}
