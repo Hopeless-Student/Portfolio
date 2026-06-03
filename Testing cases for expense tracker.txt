@@ -145,3 +145,8 @@ function checkEmpNum(showError = true) {
     toggleFields(false);
     return true;
 }
+
+emp num dash included version regex
+/^\d{6}$|^\d{3}-\d{3}$/
+for comparison of minimum value
+const numericEmp = parseInt(empNum.replace('-', ''), 10);   
