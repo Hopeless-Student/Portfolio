@@ -77,3 +77,71 @@ final version real na talaga
 const fileName = `${sanitizeFileName(data.name)}_${sanitizeFileName(getCoachingTypeLabel())}_${getFormattedDateYYYYMMDD()}.pdf`;
 
 pdf.save(fileName);
+
+
+
+===============================
+empNum for consultation update consideration fix: 
+
+function checkEmpNum(showError = true) {
+    const empNum = document.getElementById('empNum').value.trim();
+    const error = document.getElementById('empNumError');
+
+    const isSixDigits = /^\d{6}$/.test(empNum);
+
+    if (!isSixDigits) {
+        if (showError) {
+            error.textContent = "Employee number must be exactly 6 digits.";
+        }
+        toggleFields(true);
+        return false;
+    }
+
+    const emp = Number(empNum);
+
+    if (emp < 130000) {
+        if (showError) {
+            error.textContent = "Employee number must start at 130000.";
+        }
+        toggleFields(true);
+        return false;
+    }
+
+    error.textContent = "";
+    toggleFields(false);
+    return true;
+}
+
+V2 of checkEmpNum
+rule is:
+
+“Employee number is numeric and starts at 13000, max 6 digits”
+
+Then do this:
+
+function checkEmpNum(showError = true) {
+    const empNum = document.getElementById('empNum').value.trim();
+    const error = document.getElementById('empNumError');
+
+    const emp = Number(empNum);
+
+    if (!/^\d{5,6}$/.test(empNum) || isNaN(emp)) {
+        if (showError) {
+            error.textContent = "Employee number must be 5–6 digits.";
+        }
+        toggleFields(true);
+        return false;
+    }
+
+    if (emp < 13000) {
+        if (showError) {
+            error.textContent = "Employee number must start at 13000.";
+        }
+        toggleFields(true);
+        return false;
+    }
+
+    error.textContent = "";
+    toggleFields(false);
+    return true;
+}
